@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: [
       {
-      context:['/components/**', "/link/**"],
+      context:['/components/**', "/link/**","/fileTree/**"],
       target:'http://localhost:9999',
       changeOrigin:true,
       secure:false,
