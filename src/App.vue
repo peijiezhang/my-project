@@ -71,13 +71,10 @@
           </el-submenu>
         </el-menu>
 
-
-        <div class="home-middle-content">
-          <router-view/>
-        </div>
-
       </div>
-
+      <div class="home-middle-content">
+        <router-view/>
+      </div>
 
     </div>
 
@@ -125,14 +122,34 @@ export default {
 </script>
 
 <style>
-#app {
+
+
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    min-width: 1200px;
+    background-color: #eee;
+  }
+
+  a {
+    cursor: pointer !important;
+  }
+/*#app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
-}
+}*/
+
+
 
 
 
@@ -154,17 +171,17 @@ export default {
 }
 
 .home-middle-nav {
-// position: absolute;
+  position: absolute;
   display: inline-block;
   width: 199px;
   height: 100%;
   float: left;
-  background-color: #909399;
+  background-color: darkgrey;
 }
 
 
 .home-middle {
-/ / position: absolute;
+ position: absolute;
   width: 100%;
   top: 60px;
   bottom: 0px;
@@ -178,7 +195,7 @@ export default {
 
 .home-middle-content {
   position: relative;
-  margin-top: 5vh;
+  margin-top: 8vh;
   margin-right: 5vh;
   margin-left: 1.5vw;
   left: 200px;

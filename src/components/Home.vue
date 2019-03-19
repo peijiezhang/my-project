@@ -2,42 +2,44 @@
 
   <div >
 
-    <span>欢迎进入系统</span>
+    <el-row>
+      <el-col :span="10" :offset="1" style="margin-top: 1vh">
+       <!-- <span>欢迎进入系统</span>-->
 
-    <el-row >
-      <el-col :span="4" :offset="1" style="margin-top: 3vh">
-        <el-input v-model="fileRouter" placeholder="请输入路径" >
+        <el-form :model="queryContent" ref="queryContent" :rules="runRule" label-width="100px" :inline="true" >
 
-        </el-input>
+          <el-form-item label="ZK路径" prop="soaZkNamespace">
+
+            <el-input v-model="queryContent.fileRoute" placeholder="请输入路径" >
+
+            </el-input>
 
 
-      </el-col>
-      <el-col :span="2" :offset="1" style="margin-top: 3vh">
-        <el-button type="primary" :loading="queryLoading" @click="query()"><i class="el-icon-search"></i>查询</el-button>
+          </el-form-item>
+
+          <el-form-item label=" ">
+            <el-button type="primary" :loading="queryLoading" @click="query()"><i class="el-icon-search"></i>查询</el-button>
+
+          </el-form-item>
+
+        </el-form>
 
       </el-col>
 
     </el-row>
-    <el-row>
 
-      <el-col :span="15" class="panel_content" style="overflow-y: auto;height: 69vh">
-        <el-tree :data="fileTree" ref="fileTree" node-key="id"
-                 :expand-on-click-node="false"
-                 :default-expanded-keys="defaultExpandedKeys"
-                 highlight-current
-                 @node-expand="addExpendedKeys"
-                 @node-collapse="removeExpendedKeys">
-                        <span slot-scope="{ node, data }" >
-                            <span >{{ data.text }}</span>
+    <el-row >
+      <el-col :span="20" class="panel_content" style="overflow-y: auto;height: 69vh">
+        <el-tree :data="fileTree" ref="fileTree" >
+            <span slot-scope="{ node, data }" >
+                <span >{{ data.text }}</span>
 
-                        </span>
+            </span>
         </el-tree>
 
       </el-col>
 
-
     </el-row>
-
 
 
   </div>
@@ -54,54 +56,60 @@
         name: "home",
       data(){
           return{
-            fileRouter:'',
+
+            queryContent:{
+
+              fileRoute :'',
+            },
+
             queryLoading:false,
             // 树控件默认展开 key
             defaultExpandedKeys: [],
             fileTree:[],
+
+
+            runRule: {
+              fileRoute: [
+                { required: true, message: "路径不能为空", trigger: "change"}
+              ]
+
+            },
+
           }
       },
-      method:{
+      methods:{
 
           query(){
-            this.queryLoading = true;
+           // this.queryLoading = true;
+            this.$refs.queryContent.validate((valid) => {
+              if (valid) {
 
-            this.$axios.post("fileTree/getList", this.fileRouter).then((result) => {
+                try{
+                  this.$axios.post("fileTree/getList", this.queryContent).then((result) => {
 
-              if (result.data.children== 0 &&result.data.children != null&& result.data.length!=0) {
-                this.fileTree = result.data.children;
+                    if (result.data[0].children!= 0 && result.data[0].children != null && result.data[0].length!=0) {
+                      //console.log("=====>")
+                      this.fileTree = result.data[0].children;
+                      //console.log("result.data.children======>"+result.data.children);
+                    } else {
+                      console.log("result.data.children   空值")
+                    }
 
-              } else {
-                this.$message.error(result.data.msg)
+                    this.queryLoading = false;
+                  });
+
+                }catch (Error) {
+                  this.queryLoading = false;
+
+                }
+
               }
-              this.queryLoading = false;
+            });
 
-            })
 
+            this.queryLoading = false;
 
           },
-
-
-        addExpendedKeys(data, node, tree) {
-          this.defaultExpandedKeys.push(data.id);
-          //.log("data==text====>"+ data.text);
-        },
-        removeExpendedKeys(data, node, tree) {
-          let list = [];
-          this.getTreeNodeChild(list, node);
-          this.defaultExpandedKeys = this.defaultExpandedKeys.filter(item => {
-            return !list.indexOf(item);
-          });
-        },
-
-        getTreeNodeChild(list, node) {
-          let childList = node.childNodes;
-          for(let i in childList) {
-            this.getTreeNodeChild(list, childList[i])
-            list.push(childList[i].data.id);
-          }
-        },
-
 
 
       }
@@ -109,6 +117,5 @@
 </script>
 
 <style scoped>
-
 
 </style>
