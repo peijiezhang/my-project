@@ -20,6 +20,8 @@
       <el-form-item style="width:100%;">
         <el-button type="primary" style="width:100%;" @click="handleSubmit2" >登录 </el-button>
       </el-form-item>
+
+
     </el-form>
 
   </div>
@@ -55,17 +57,32 @@
           password: ''
         },
         rules2: {
-          userName: [
+          username: [
             {validator: checkAccount, trigger: 'blur'},
           ],
-          passWord: [
+          password: [
             {validator: checkPass, trigger: 'blur'},
           ]
         }
       };
     },
     methods: {
+
+
+      initRoutForm(){
+        this.$router.push({
+          query: {
+            username: this.username,
+            password: this.password,
+          }
+        });
+
+
+      },
+
+
       handleSubmit2(ruleForm2) {
+        this.initRoutForm();
 
         this.$refs.ruleForm2.validate((valid) => {
           if (valid) {

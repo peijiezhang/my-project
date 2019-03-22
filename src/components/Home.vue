@@ -2,44 +2,54 @@
 
   <div >
 
-    <el-row>
-      <el-col :span="10" :offset="1" style="margin-top: 1vh">
-       <!-- <span>欢迎进入系统</span>-->
 
-        <el-form :model="queryContent" ref="queryContent" :rules="runRule" label-width="100px" :inline="true" >
-
-          <el-form-item label="ZK路径" prop="soaZkNamespace">
-
-            <el-input v-model="queryContent.fileRoute" placeholder="请输入路径" >
-
-            </el-input>
+      <el-row >
+        <el-col :span="10" :offset="1" style="margin-top: 1vh">
 
 
-          </el-form-item>
+          <el-form :model="queryContent" ref="queryContent" :rules="runRule" label-width="100px" :inline="true" >
 
-          <el-form-item label=" ">
-            <el-button type="primary" :loading="queryLoading" @click="query()"><i class="el-icon-search"></i>查询</el-button>
+            <el-form-item label="ZK路径" prop="soaZkNamespace">
 
-          </el-form-item>
+              <el-input v-model="queryContent.fileRoute" placeholder="请输入路径" >
 
-        </el-form>
+              </el-input>
 
-      </el-col>
 
-    </el-row>
+            </el-form-item>
 
-    <el-row >
-      <el-col :span="20" class="panel_content" style="overflow-y: auto;height: 69vh">
-        <el-tree :data="fileTree" ref="fileTree" >
+            <el-form-item label=" ">
+              <el-button type="primary" :loading="queryLoading" @click="query()"><i class="el-icon-search"></i>查询</el-button>
+
+            </el-form-item>
+
+          </el-form>
+
+        </el-col>
+
+      </el-row>
+
+
+
+      <el-row >
+        <el-col :span="20" class="panel_content" style="overflow-y: auto;height: 69vh">
+          <el-tree :data="fileTree" ref="fileTree" >
             <span slot-scope="{ node, data }" >
                 <span >{{ data.text }}</span>
 
             </span>
-        </el-tree>
+          </el-tree>
 
-      </el-col>
+        </el-col>
 
-    </el-row>
+      </el-row>
+
+
+
+
+
+
+
 
 
   </div>

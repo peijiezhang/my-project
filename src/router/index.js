@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import FirstView from '@/components/FirstView'
+import Orders from '@/components/Orders'
 
 Vue.use(Router)
 
@@ -35,6 +36,15 @@ export default new Router({
       component: Home,
       meta: {
         title: 'Home'
+      }
+
+    },{
+
+      path: '/Orders',
+      name: 'Orders',
+      component: Orders,
+      meta: {
+        title: 'Orders'
       }
 
     }

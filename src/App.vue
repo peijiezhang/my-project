@@ -93,20 +93,21 @@ export default {
 
         {
           url: '/',
-          name: '信息检索',
+          name: '操作页面',
           styleUrl: 'el-icon-menu',
           children: [
             {
-              url: '/soaFrontShow',
-              name: '接口-方法版本检索',
+              url: '/Login',
+              name: '登录页面',
+            },
+
+            {
+              url: '/Orders',
+              name: '订单服务',
             },
             {
-              url: '/soaExportDoc',
-              name: 'API文档导出',
-            },
-            {
-              url: '/soaZkCompare',
-              name: 'ZK服务对比',
+              url: '/Home',
+              name: '查询磁盘目录结构',
             },
           ],
         }
